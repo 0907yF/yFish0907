@@ -1,11 +1,10 @@
 VERILOG = iverilog
-TARGET = decoder_3_8.vcd
-
-$(TARGET) : decoder_3_8.vvp
-	vvp decoder_3_8.vvp
-
-decoder_3_8.vvp: decoder_3_8_tb.v decoder_3_8.v
-	$(VERILOG) -o decoder_3_8.vvp decoder_3_8_tb.v decoder_3_8.v
-
+TARGET = voter.vcd
+TEMP = RTL.vvp
+$(TARGET) : $(TEMP)
+	vvp $(TEMP)
+$(TEMP): RTL_tb.v RTLcode.v
+	$(VERILOG) -o $(TEMP) RTL_tb.v RTLcode.v
 clean:
-	del $(TARGET)
+	-del $(TARGET)
+	-del $(TEMP)
